@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 engine = create_engine(DB_CONNECTION_STRING)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, engine=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 class Base(DeclarativeBase):
     pass

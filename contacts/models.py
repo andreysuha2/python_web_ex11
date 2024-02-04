@@ -23,5 +23,5 @@ class Email(Base):
 class Phone(Base):
     __tablename__ = 'phones'
     id: Mapped[int] = mapped_column(Integer,  primary_key=True)
-    phone: Mapped[str] = mapped_column(String(12), nullable=False)
+    phone: Mapped[str] = mapped_column(String(13), nullable=False)
     contact_id: Mapped[int] = mapped_column(Integer, ForeignKey('contacts.id'))
