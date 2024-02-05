@@ -5,40 +5,14 @@ from typing import List, Optional
 
 PhoneNumber.phone_format = 'E164'
 
-class EmailBase(BaseModel):
-    email: EmailStr
-
-class EmailResposnse(EmailBase):
-    id: int
-
-    class Config:
-        from_attributes = True
-
-class PhoneBase(BaseModel):
-    phone: PhoneNumber
-
-class PhoneResponse(PhoneBase):
-    id: int
-
-    class Config:
-        from_attributes = True
-
-class ContactBase(BaseModel):
+class ContactModel(BaseModel):
     first_name: str = Field(max_length=50)
-    last_name: Optional[str] = Field(None, max_length=50)
-    birthday: Optional[date] = None
+    last_name: str = Field(max_length=100)
+    email: EmailStr = Field(max_length=50)
+    phone: PhoneNumber = Field(max_length=13)
+    birthday: date
     additional_data: Optional[str] = Field(None, max_length=255)
-    
-class ContactCreationModel(ContactBase):
-    emails: List[EmailStr] = []
-    phones: List[PhoneNumber] = []
 
-class ContactUpdateModel(ContactBase):
-    pass
-
-class ContactResponse(ContactBase):
-    emails: List[EmailResposnse]
-    phones: List[PhoneResponse]
-
+class ContactResponse(ContactModel):
     class Config:
         from_attributes = True
