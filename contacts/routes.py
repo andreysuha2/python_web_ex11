@@ -8,8 +8,8 @@ router = APIRouter(prefix='/contacts', tags=['contacts'])
 ContactControllerDep = Annotated[ContactController, Depends(ContactController)]
 
 @router.get('/', response_model=List[schemas.ContactResponse])
-async def contacts_list(controller: ContactControllerDep, db: DBConnectionDep, skip: int = 0, limit: int = 100):
-    return await controller.list(skip, limit, db)
+async def contacts_list(controller: ContactControllerDep, db: DBConnectionDep, q: str = '', skip: int = 0, limit: int = 100):
+    return await controller.list(skip=skip, limit=limit, db=db, q=q)
 
 @router.post('/', response_model=schemas.ContactResponse)
 async def create_contact(controller: ContactControllerDep, db: DBConnectionDep, body: schemas.ContactModel):
