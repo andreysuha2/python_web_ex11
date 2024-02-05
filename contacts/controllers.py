@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
+from app.db import has_date_next_days
 from contacts.models import Contact
 from contacts import schemas
 from typing import List
@@ -36,4 +37,7 @@ class ContactController:
         if contact:
             db.delete(contact)
             db.commit()
-        return contact   
+        return contact
+    
+    async def upcoming_birthdays(self, db: Session, days: int = 7) -> List[Contact]:
+        return db.query(Contact).filter(has_date_next_days(Contact.birthday, days)).all()

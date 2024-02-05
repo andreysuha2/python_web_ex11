@@ -15,6 +15,10 @@ async def contacts_list(controller: ContactControllerDep, db: DBConnectionDep, q
 async def create_contact(controller: ContactControllerDep, db: DBConnectionDep, body: schemas.ContactModel):
     return await controller.create(body, db)
 
+@router.get('/upcoming_birthdays', response_model=List[schemas.ContactResponse])
+async def get_upcoming_birthdays(controller: ContactControllerDep, db: DBConnectionDep, days: int = 7):
+    return await controller.upcoming_birthdays(db, days)
+
 @router.get('/{contact_id}', response_model=schemas.ContactResponse)
 async def read_contact(controller: ContactControllerDep, db: DBConnectionDep, contact_id: int):
     contact = await controller.read(contact_id, db)
